@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [LoginService]
+  providers: [LoginService],
 })
 export class AppComponent {
   title = 'Front';

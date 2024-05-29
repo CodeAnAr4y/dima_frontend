@@ -11,11 +11,15 @@ export class LoginService {
   backendUrl = environment.backendUrl;
   backendApiUrl = this.backendUrl + '/api';
   loginUrl = this.backendApiUrl + '/get';
-  registrationUrl = this.backendApiUrl + '/registrate';
+  registrationUrl = this.backendApiUrl + '/users/register';
 
   constructor(private http: HttpClient) {}
 
-  registerUser(params: User): Observable<User> {
+  registerUser(params: Object): Observable<User> {
     return this.http.post<User>(this.registrationUrl, params);
+  }
+
+  findUserByUsernamePassword(username: string, password: string): Observable<User> {
+    return this.http.post<User>(`http://localhost:8000/api/login`, {username: username, password: password})
   }
 }

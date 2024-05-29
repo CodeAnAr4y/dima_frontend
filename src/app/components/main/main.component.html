@@ -1,0 +1,143 @@
+<header>
+  <button class="btn" (click)="router.navigate([''])">
+    <img src="assets/logo-sm.svg" alt="БО" />
+  </button>
+  <button class="btn" (click)="router.navigate([''])">
+    <img src="assets/shopping-cart.svg" alt="Cart" />
+  </button>
+  <div class="d-flex search">
+    <div class="search-input">
+      <img src="assets/search-icon.svg" alt="" />
+      <input [(ngModel)]="searchValue" type="text" />
+    </div>
+    <button (click)="search()" class="search-btn">Найти</button>
+  </div>
+  <button class="btn user-btn">
+    <div class="user-icon">И</div>
+    <div>Иванов Иван</div>
+  </button>
+</header>
+
+<section class="container mb-5">
+  <div class="filters-title">
+    <div>Фильтры</div>
+  </div>
+
+  <form [formGroup]="filtersForm" (ngSubmit)="applyFilters()">
+    <div class="row">
+      <div class="col-2 input-label">НАЗВАНИЕ</div>
+      <div class="col-10">
+        <input class="input-field" type="text" formControlName="itemName" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2 input-label">КОЛИЧЕСТВО</div>
+      <div class="col-10">
+        <input class="input-field" type="text" formControlName="quantity" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2 input-label">СВОЙСТВО</div>
+      <div class="col-10">
+        <input class="input-field" type="text" formControlName="property" />
+      </div>
+    </div>
+    <button class="filter-btn">Прменить</button>
+  </form>
+</section>
+
+<section *ngIf="!viewType" class="container">
+  <div class="row">
+    <div *ngFor="let product of products" class="col-4 mb-4">
+      <div class="card-context">
+        <img src="assets/no-image.png" alt="" />
+        <div class="card-content">
+          <div class="card-title">{{ product.product_name }}</div>
+          <div class="card-spec">{{ product.specification }}</div>
+          <div class="card-num-of-ratings">
+            Осталось: <span> {{ product.quantity }}</span>
+          </div>
+          <div class="card-num-of-ratings">
+            Количество оценок <span> {{ product.number_of_ratings }}</span>
+          </div>
+          <div class="card-rating">
+            Средняя оценка <span>{{ product.average_rating }}</span>
+          </div>
+          <div class="card-cost">
+            Цена: <span>{{ product.cost }}р.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="viewType" class="container mb-5">
+  <table class="my-table mb-3">
+    <tbody>
+      <tr class="table-title">
+        <th>Название</th>
+        <th>Спецификация</th>
+        <th>Количество</th>
+        <th>Средняя оценка</th>
+        <th>Количество оценок</th>
+        <th>Цена</th>
+        <th>Действие</th>
+      </tr>
+      <tr *ngFor="let prod of products">
+        <td>{{ prod.product_name }}</td>
+        <td>{{ prod.specification }}</td>
+        <td>{{ prod.quantity }}</td>
+        <td>{{ prod.average_rating }}</td>
+        <td>{{ prod.number_of_ratings }}</td>
+        <td>{{ prod.cost }}р.</td>
+        <td>
+          <button (click)="deleteProduct(prod)" class="theme-btn">
+            Удалить
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="filter-btn" (click)="addProductWindow = !addProductWindow">
+    {{addProductWindow ? "Скрыть": "Добавить товар"}}
+  </button>
+
+  <div class="mt-5" *ngIf="addProductWindow">
+    <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+      <div class="row">
+        <div class="col-2 input-label">Название</div>
+        <div class="col-10">
+          <input class="input-field" type="text" formControlName="name" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2 input-label">Количество</div>
+        <div class="col-10">
+          <input class="input-field" type="text" formControlName="quantity" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2 input-label">Спецификация</div>
+        <div class="col-10">
+          <input
+            class="input-field"
+            type="text"
+            formControlName="specification"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2 input-label">Цена</div>
+        <div class="col-10">
+          <input class="input-field" type="text" formControlName="cost" />
+        </div>
+      </div>
+      <button class="filter-btn">Добавить +</button>
+    </form>
+  </div>
+
+</section>
+
+<footer></footer>

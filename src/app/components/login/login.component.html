@@ -11,9 +11,27 @@
 
     <form [formGroup]="registrationForm" (ngSubmit)="registrate()">
       <div class="row">
-        <div class="col-3 input-label">ИМЯ</div>
+        <div class="col-3 input-label">РОЛЬ</div>
+        <div class="col-7">
+          <button class="role-btn" (click)="changeRole()">Я {{role}}</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 input-label">ИМЯ ПОЛЬЗОВАТЕЛЯ</div>
         <div class="col-7">
           <input class="input-field" type="text" formControlName="username" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 input-label">ФИО</div>
+        <div class="col-7">
+          <input class="input-field" type="text" formControlName="fullname" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 input-label">ЭЛЕКТРОННАЯ ПОЧТА</div>
+        <div class="col-7">
+          <input class="input-field" type="text" formControlName="email" />
         </div>
       </div>
       <div class="row">
@@ -47,7 +65,7 @@
 
       <div class="row">
         <div class="col-10 d-flex justify-content-end align-items-center my-5">
-          <div class="me-5 text-secondary" (click)="signUp = true">Войти</div>
+          <div class="me-5 text-secondary test" (click)="signUp = true">Войти</div>
           <button class="submit-btn">Подтвердить</button>
         </div>
       </div>
@@ -80,7 +98,7 @@
 
       <div class="row">
         <div class="col-10 d-flex justify-content-end align-items-center my-5">
-          <div class="me-5 text-secondary" (click)="signUp = false">
+          <div class="me-5 text-secondary test" (click)="signUp = false">
             Регистрация
           </div>
           <button class="submit-btn">Войти</button>

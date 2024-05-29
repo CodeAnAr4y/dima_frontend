@@ -9,6 +9,10 @@
     width: 100%;
 }
 
+.test{
+    cursor: pointer;
+}
+
 .submit-btn{
     padding: 12px 28px;
     outline: none;
@@ -16,6 +20,7 @@
     color: white;
     background-color: var(--blue-btn);
     border: none;
+    cursor: pointer;
 }
 
 form > div{
@@ -24,4 +29,12 @@ form > div{
 
 .input-label{
     font-weight: 600;
+}
+
+.role-btn{
+    border: 1px solid rgb(181, 181, 181);
+    background-color: transparent;
+    padding: 8px 16px;
+    border-radius: 32px;
+    font-weight: bold;
 }
