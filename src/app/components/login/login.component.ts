@@ -69,7 +69,7 @@ export class LoginComponent {
       (result: User) => {
         console.log(result);
         this.cookie.set('user', result.id.toString())
-        // this.router.navigate([""])
+        this.router.navigate([""])
       },
       (error) => {
 

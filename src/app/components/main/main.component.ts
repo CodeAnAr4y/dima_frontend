@@ -15,6 +15,8 @@ import { Product } from '../../interfaces/product';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SetProduct } from '../../interfaces/set-product';
+import { ProductService } from '../../services/product.service';
+import { PurchaseHistory } from '../../interfaces/purchase-history';
 
 @Component({
   selector: 'app-main',
@@ -51,7 +53,8 @@ export class MainComponent implements OnInit {
     public router: Router,
     private http: HttpClient,
     private cookie: CookieService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {
@@ -80,8 +83,8 @@ export class MainComponent implements OnInit {
     });
   }
 
-  updateProducts(id: number){
-    this.getProductsByVendor(id).subscribe((res: Product[])=>{
+  updateProducts(id: number) {
+    this.getProductsByVendor(id).subscribe((res: Product[]) => {
       this.products = res;
     });
   }
@@ -100,7 +103,9 @@ export class MainComponent implements OnInit {
     return this.http.get<Product[]>('http://localhost:8000/api/products');
   }
   getProductsByVendor(id: number): Observable<Product[]> {
-    return this.http.get<Product[]>(`http://localhost:8000/api/products/vendor/${id}`);
+    return this.http.get<Product[]>(
+      `http://localhost:8000/api/products/vendor/${id}`
+    );
   }
 
   getUserById(id: number): Observable<User> {
@@ -128,20 +133,25 @@ export class MainComponent implements OnInit {
       average_rating: 0,
       number_of_ratings: 0,
     };
-    this.setProduct(product).subscribe((res: Product) => {
-      if(this.user){
-        this.updateProducts(this.user.id);
+    this.setProduct(product).subscribe(
+      (res: Product) => {
+        if (this.user) {
+          this.updateProducts(this.user.id);
+        }
+        alert(`Добавлен продукт ${res.product_name}`);
+      },
+      (error) => {
+        alert(
+          'Не удалось добавить товар, проверьте введенные данные или подключение к серверу'
+        );
       }
-      alert(`Добавлен продукт ${res.product_name}`)
-    }, (error)=> {
-      alert("Не удалось добавить товар, проверьте введенные данные или подключение к серверу")
-    });
+    );
   }
 
   deleteProduct(product: Product) {
     this.removeProduct(product.id).subscribe(
       (res) => {
-        if(this.user){
+        if (this.user) {
           this.updateProducts(this.user.id);
         }
         alert(
@@ -158,5 +168,19 @@ export class MainComponent implements OnInit {
 
   removeProduct(id: number) {
     return this.http.delete(`http://localhost:8000/api/product/${id}/delete`);
+  }
+
+  addToShoppingCart(product: Product) {
+    const purchaseHistory: any = {
+      client: this.user.id,
+      product: product.id,
+      paid: false,
+    };
+    this.productService
+      .addToShoppingCart(purchaseHistory)
+      .subscribe((res: PurchaseHistory) => {
+        console.log(res);
+        alert("Товар "+ product.product_name + " помещен в корзину!");
+      });
   }
 }

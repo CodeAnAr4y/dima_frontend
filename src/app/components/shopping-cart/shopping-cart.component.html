@@ -1,0 +1,28 @@
+<button class="btn" (click)="router.navigate([''])">
+    <img src="assets/logo-sm.svg" alt="БО" />
+  </button>
+<div class="container">
+    <h1>Корзина</h1>
+    <div *ngIf="shoppingCartProducts.length > 0" class="card-deck mb-5">
+        <div class="card mb-3" *ngFor="let product of shoppingCartProducts">
+          <div class="card-body">
+            <h5 class="card-title">{{product.product_name}}</h5>
+            <p class="card-text">{{product.specification}}</p>
+            <p class="card-text"><small class="text-muted">{{product.cost}}р.</small></p>
+            <button class="btn btn-primary" (click)="buy(product)">Купить</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="shoppingCartProducts.length === 0">Здесь пока ничего нет :(</div>
+    <h1>История покупок</h1>
+    <div *ngIf="boughtProducts.length > 0" class="card-deck mb-5">
+        <div class="card mb-3" *ngFor="let product of boughtProducts">
+          <div class="card-body">
+            <h5 class="card-title">{{product.product_name}}</h5>
+            <p class="card-text">{{product.specification}}</p>
+            <p class="card-text"><small class="text-muted">{{product.cost}}р.</small></p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="boughtProducts.length === 0">Нет Истории покупок, приобретите товар</div>
+</div>
