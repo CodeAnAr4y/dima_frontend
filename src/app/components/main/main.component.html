@@ -12,7 +12,7 @@
     </div>
     <button (click)="search()" class="search-btn">Найти</button>
   </div>
-  <button class="btn user-btn">
+  <button (click)="router.navigate(['account'])" class="btn user-btn">
     <div class="user-icon">{{user.fullname[0]}}</div>
     <div>{{user.fullname}}</div>
   </button>

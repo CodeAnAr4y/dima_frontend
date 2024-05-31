@@ -1,0 +1,32 @@
+<button class="btn" (click)="router.navigate([''])">
+  <img src="assets/logo-sm.svg" alt="БО" />
+</button>
+<div class="container mt-5 content">
+  <div class="user-icon">{{ user.fullname[0] }}</div>
+  <div>
+    <div class="item">
+      Имя пользователя: <span>{{ user.username }}</span>
+      <button class="btn" (click)="editAccount('username', user.username)"><img width="40" src="assets/edit.jpg" alt="" /></button>
+    </div>
+    <div class="item">
+      ФИО: <span>{{ user.fullname }}</span>
+      <button class="btn" (click)="editAccount('fullname', user.fullname)"><img width="40" src="assets/edit.jpg" alt="" /></button>
+    </div>
+    <div class="item">
+      Организация: <span>{{ user.company }}</span>
+      <button class="btn" (click)="editAccount('company', user.company)"><img width="40" src="assets/edit.jpg" alt="" /></button>
+    </div>
+    <div class="item">
+      Адрес: <span>{{ user.address }}</span>
+      <button class="btn" (click)="editAccount('address', user.address)"><img width="40" src="assets/edit.jpg" alt="" /></button>
+    </div>
+    <div class="item">
+      Почта: <span>{{ user.email }}</span>
+      <button class="btn" (click)="editAccount('email', user.email)"><img width="40" src="assets/edit.jpg" alt="" /></button>
+    </div>
+    <div class="item">
+      Пароль: <span>{{ '*'.repeat(this.user.password.length) }}</span>
+      <button class="btn" (click)="editAccount('password', this.user.password)"><img width="40" src="assets/edit.jpg" alt="" /></button>
+    </div>
+  </div>
+</div>
