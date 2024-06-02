@@ -29,6 +29,7 @@ export class MainComponent implements OnInit {
   searchValue: string = '';
   users: User[] | undefined;
   products: Product[] | undefined;
+  allProducts: Product[] | undefined;
   viewType = false;
   user: User | undefined;
 
@@ -69,6 +70,7 @@ export class MainComponent implements OnInit {
         } else {
           this.getProducts().subscribe((res: Product[]) => {
             this.products = res;
+            this.allProducts = res;
           });
         }
       },
@@ -94,7 +96,33 @@ export class MainComponent implements OnInit {
   }
 
   applyFilters() {
-    console.log(this.filtersForm.value);
+    if (this.filtersForm.value.itemName !== '') {
+      this.products = this.products.filter((product) =>
+        product.product_name.includes(this.filtersForm.value.itemName)
+      );
+    }
+    // console.log(this.filtersForm.value);
+    if (this.filtersForm.value.property !== '') {
+      this.products = this.products.filter((product) =>
+        product.specification.includes(this.filtersForm.value.property)
+      );
+    }
+
+    if (this.filtersForm.value.quantity !== '') {
+      console.log(Number(this.filtersForm.value.quantity));
+      console.log(this.products[0].quantity);
+      this.products = this.products.filter((product) => {
+        return product.quantity >= Number(this.filtersForm.value.quantity);
+      });
+    }
+
+    if (
+      this.filtersForm.value.itemName === '' &&
+      this.filtersForm.value.quantity === '' &&
+      this.filtersForm.value.property === ''
+    ) {
+      this.products = this.allProducts;
+    }
   }
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>('http://localhost:8000/api/users');
@@ -180,7 +208,7 @@ export class MainComponent implements OnInit {
       .addToShoppingCart(purchaseHistory)
       .subscribe((res: PurchaseHistory) => {
         console.log(res);
-        alert("Товар "+ product.product_name + " помещен в корзину!");
+        alert('Товар ' + product.product_name + ' помещен в корзину!');
       });
   }
 }

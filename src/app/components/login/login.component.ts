@@ -62,9 +62,10 @@ export class LoginComponent {
       password: formData.password ? formData.password : '',
       fullname: formData.fullname ?formData.fullname : "" ,
       email: formData.email ? formData.email : '',
-      created: Date.now(),
+      // created: Date.now(),
       role: this.role === 'покупатель' ? 1 : 2,
     };
+    console.log(user);
     this.loginService.registerUser(user).subscribe(
       (result: User) => {
         console.log(result);
