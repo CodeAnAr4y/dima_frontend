@@ -1,0 +1,31 @@
+.star {
+    img{
+        width: 30px;
+    }
+}
+
+textarea{
+    width: 500px;
+    border: none;
+    background-color: #f5f3f3;
+    border-radius: 8px;
+}
+
+.comment-content{
+    border: 1px solid #d9d7d7;
+    width: 500px;
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+.username{
+    color: green;
+    font-size: 12px;
+    font-weight: bold;
+    // margin-bottom: 15px;
+}
+
+.left-comment-content{
+    color: rgb(118, 118, 118);
+    font-size: 13px;
+    font-weight: bold;
+}

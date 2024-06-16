@@ -20,7 +20,28 @@
           <div class="card-body">
             <h5 class="card-title">{{product.product_name}}</h5>
             <p class="card-text">{{product.specification}}</p>
-            <p class="card-text"><small class="text-muted">{{product.cost}}р.</small></p>
+            <p class="card-text"><small class="text-muted">Цена {{product.cost}}р.</small></p>
+            <button class="btn star" (click)="rate(product, 1)" #star1>
+              <img [src]="product.rating && product.rating >= 1 ? 'assets/star-filled.svg': 'assets/star-empty.svg'" alt="">
+            </button>
+            <button class="btn star" (click)="rate(product, 2)" #star2>
+              <img [src]="product.rating && product.rating >= 2 ? 'assets/star-filled.svg': 'assets/star-empty.svg'" alt="">
+            </button>
+            <button class="btn star" (click)="rate(product, 3)" #star3>
+              <img [src]="product.rating && product.rating >= 3 ? 'assets/star-filled.svg': 'assets/star-empty.svg'" alt="">
+            </button>
+            <button class="btn star" (click)="rate(product, 4)" #star4>
+              <img [src]="product.rating && product.rating >= 4 ? 'assets/star-filled.svg': 'assets/star-empty.svg'" alt="">
+            </button>
+            <button class="btn star" (click)="rate(product, 5)" #star5>
+              <img [src]="product.rating && product.rating >= 5 ? 'assets/star-filled.svg': 'assets/star-empty.svg'" alt="">
+            </button>
+            <textarea *ngIf="!product.commentLeft" class="d-flex flex-column mt-3 mb-3 p-2" placeholder="Ваш отзыв..." [(ngModel)]="product.commentContext"></textarea>
+            <button *ngIf="!product.commentLeft" (click)="leaveComment(product)" class="d-flex flex-column btn btn-primary">Оставить отзыв</button>
+            <div *ngIf="product.commentLeft" class="comment-content mt-3">
+              <div class="username">{{user.fullname}}</div>
+              <div class="left-comment-content">{{product.commentContext}}</div>
+            </div>
           </div>
         </div>
       </div>

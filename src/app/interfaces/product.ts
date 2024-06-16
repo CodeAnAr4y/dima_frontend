@@ -6,5 +6,8 @@ export interface Product{
     cost: number;
     average_rating: number;
     number_of_ratings: number;
-    quantity: number
+    quantity: number;
+    rating: number;
+    commentLeft: boolean;
+    commentContext: string;
 }
